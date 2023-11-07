@@ -10,9 +10,73 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_01_235849) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_07_115234) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "blueprint_translations", force: :cascade do |t|
+    t.bigint "blueprint_id", null: false
+    t.string "name", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blueprint_id"], name: "index_blueprint_translations_on_blueprint_id"
+    t.index ["locale", "blueprint_id"], name: "index_blueprint_translations_on_locale_and_blueprint_id", unique: true
+    t.index ["locale"], name: "index_blueprint_translations_on_locale"
+    t.index ["name"], name: "index_blueprint_translations_on_name"
+  end
+
+  create_table "blueprint_values", force: :cascade do |t|
+    t.bigint "blueprint_id", null: false
+    t.bigint "property_id", null: false
+    t.string "value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blueprint_id"], name: "index_blueprint_values_on_blueprint_id"
+    t.index ["property_id"], name: "index_blueprint_values_on_property_id"
+  end
+
+  create_table "blueprints", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "brand_id"
+    t.bigint "expansion_id"
+    t.index ["brand_id"], name: "index_blueprints_on_brand_id"
+    t.index ["category_id"], name: "index_blueprints_on_category_id"
+    t.index ["expansion_id"], name: "index_blueprints_on_expansion_id"
+  end
+
+  create_table "brands", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_brands_on_name", unique: true
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
+  create_table "expansions", force: :cascade do |t|
+    t.bigint "brand_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_expansions_on_brand_id"
+    t.index ["name", "brand_id"], name: "index_expansions_on_name_and_brand_id", unique: true
+    t.index ["name"], name: "index_expansions_on_name"
+  end
+
+  create_table "properties", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_properties_on_name", unique: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name", default: "", null: false
@@ -41,4 +105,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_01_235849) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "blueprint_translations", "blueprints"
+  add_foreign_key "blueprint_values", "blueprints"
+  add_foreign_key "blueprint_values", "properties"
+  add_foreign_key "blueprints", "brands"
+  add_foreign_key "blueprints", "categories"
+  add_foreign_key "blueprints", "expansions"
+  add_foreign_key "expansions", "brands"
 end
