@@ -53,3 +53,4 @@ group :test do
 end
 gem 'cancancan'
 
+gem 'faker'

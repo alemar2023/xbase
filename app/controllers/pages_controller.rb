@@ -18,6 +18,7 @@ class PagesController < ApplicationController
   end
   def admin_section
     render layout: 'dashboard'
+
   end
 # ---------------- SUPER ADMIN section --------------------------------------
   def super_section

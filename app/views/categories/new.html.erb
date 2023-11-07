@@ -1,0 +1,12 @@
+<h2>Crea Categoria</h2>
+
+<%= form_for :category, categories_path do |f| %> do |f| %>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+
+
+  <%= f.submit "Create Category" %>
+<% end %>
