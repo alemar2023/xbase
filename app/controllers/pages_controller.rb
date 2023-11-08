@@ -19,6 +19,8 @@ class PagesController < ApplicationController
   def admin_section
     render layout: 'dashboard'
 
+ 
+
   end
 # ---------------- SUPER ADMIN section --------------------------------------
   def super_section
@@ -26,7 +28,9 @@ class PagesController < ApplicationController
   end
 
 # ---------------- VAR section --------------------------------------
+  def brand
 
+  end
 
 end
 

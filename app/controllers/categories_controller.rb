@@ -1,37 +1,48 @@
 class CategoriesController < ApplicationController
-
   def index
-
-    @categories = Category.all
-
-  end
-
-  def new
-    @categories = Category.new
-
+    @category = Category.all
   end
 
   def show
+    @category = Category.find(params[:id])
   end
 
-  def edit
+  def new
+    @category = Category.new
   end
 
-  # POST /contents or /contents.json
   def create
-
-    @categories = Category.new(category_params)
-
-      if @categories.save
-         redirect_to admin_section_path, notice: "Categoria creata correttamente."
-        # format.html { redirect_to category_url(@categories), notice: "Categoria creata correttamente." }
-        #  format.json { render :show, status: :created, location: @categories }
-      else
-        redirect_to admin_section_path, notice: "Categoria già presente."
-      end
-
-
+    @category = Category.new(category_params)
+    if @category.save
+      redirect_to admin_section_path, notice: "Categoria creata correttamente."
+    else
+      redirect_to admin_section_path, notice: "Categoria già presente."
+    end
   end
+
+
+
+    def edit
+    @category = Category.find(params[:id])
+  end
+
+  def update
+    @category = Category.find(params[:id])
+    if @category.update(category_params)
+      redirect_to @category
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @category = Category.find(params[:id])
+    @category.destroy
+    redirect_to categories_path
+  end
+
+
+
 
   private
 

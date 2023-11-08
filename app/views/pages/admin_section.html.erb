@@ -4,7 +4,7 @@
 <p style="color: green"><%= notice %></p>
 
 <div class="container-fluid">
-  <div class="row-cols-4 center" >
+  <div class="row-cols-3 center" >
     <hr>
     <p>Crea nuova categoria</p>
     <%= form_for :category, url: categories_path do |f| %>
@@ -18,8 +18,23 @@
 
       <%= f.submit "Create Category" , class: 'btn btn-primary', style: "width:250px !important" %>
     <% end %>
+  </div><div class="row-cols-3 center" >
+    <hr>
+    <p>Crea nuovo Brand /Gioco </p>
+    <%= form_for :brand, url: categories_path do |f| %>
+
+      <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
+
+
+
+      <%= f.submit "Create Brand" , class: 'btn btn-primary', style: "width:250px !important" %>
+    <% end %>
   </div>
-  <div class="row-cols-4">
+  <div class="row-cols-3">
+
 
 
 
