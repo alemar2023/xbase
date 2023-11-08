@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   def index
     @category = Category.all
+    @brand_data = Brand.all
   end
 
   def show

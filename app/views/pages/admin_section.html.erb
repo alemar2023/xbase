@@ -1,43 +1,138 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<h1>Admin section</h1>
+<p>Admin section</p>
 
 <p style="color: green"><%= notice %></p>
 
 <div class="container-fluid">
-  <div class="row-cols-3 center" >
-    <hr>
-    <p>Crea nuova categoria</p>
-    <%= form_for :category, url: categories_path do |f| %>
+  <div class="row">
+    <div class="col-6 col-sm-4">
+      <hr>
+      <p>Crea nuova categoria</p>
+      <%= form_for :category, url: categories_path do |f| %>
 
-      <div class="field">
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-      </div>
-
-
-
-      <%= f.submit "Create Category" , class: 'btn btn-primary', style: "width:250px !important" %>
-    <% end %>
-  </div><div class="row-cols-3 center" >
-    <hr>
-    <p>Crea nuovo Brand /Gioco </p>
-    <%= form_for :brand, url: categories_path do |f| %>
-
-      <div class="field">
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-      </div>
+        <div class="field">
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+        </div>
 
 
 
-      <%= f.submit "Create Brand" , class: 'btn btn-primary', style: "width:250px !important" %>
-    <% end %>
-  </div>
-  <div class="row-cols-3">
-
-
-
-
+        <%= f.submit "Create Category", class: 'btn btn-primary', style: "width:250px !important" %>
+      <% end %>
+    </div>
+    <div class="col-6 col-sm-4">
+      <hr>
+      <p></p>
+      <% @category.each do |exp| %>
+        <li><%= exp.name %></li>
+      <% end %>
+    </div>
   </div>
 
+
+  <div class="row">
+    <div class="col-6 col-sm-4">
+      <hr>
+      <p>Crea nuovo Brand /Gioco </p>
+      <%= form_for :brand, url: brands_path do |f| %>
+
+        <div class="field">
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+          <%
+
+          %>
+        </div>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+        <%= f.submit "Create Brand", class: 'btn btn-primary', style: "width:250px !important" %>
+      <% end %>
+    </div>
+
+    <div class="col-6 col-sm-4">
+      <hr>
+      <p></p>
+      <% @brands.each do |exp| %>
+       <li><%= exp.name %></li>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 col-sm-4">
+      <hr>
+      <p>Crea nuova espansione</p>
+      <%= form_for :expansion, url: expansions_path do |f| %>
+
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+
+        <%= f.label :brand_id %>
+        <%= f.collection_select :brand_id, Brand.all, :id, :name %>
+
+
+        <%= f.submit "Create Expansion", class: 'btn btn-primary', style: "width:250px !important" %>
+      <% end %>
+
+
+    </div>
+
+    <div class="col-6 col-sm-4">
+      <hr>
+      <p></p>
+      <% @expansions.each do |blog| %>
+
+          <li><%= blog.name %> |  <%= blog.brand.name rescue 'No post category present for this blog' %></li>
+
+      <% end %>
+
+    </div>
+  </div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <div class="row">
+    <div class="col-6 col-sm-4">
+      <hr>
+      <p>Crea nuova espansione</p>
+      <%= form_with(url: blueprint_add_path) do |f| %>
+        <div class="field">
+          <%= f.label :name %>
+          <%= f.text_field :titolo , class: "form-control" , :required => true%>
+        </div>
+
+        <div class="field">
+          <%= f.label :category_id %>
+          <%= f.collection_select :category_id, Category.all, :name,  :name ,   {:include_blank => 'Select Brand...'},    html_options = {class: "form-control" , required: true } %>
+
+        </div>
+
+        <div class="field">
+          <%= f.label :brand_id %>
+          <%= f.collection_select :brand_id, Brand.all,  :name,  :name ,  {:include_blank => 'Select Brand...'},   html_options = {class: "form-control" , required: true } %>
+        </div>
+
+        <div class="field">
+          <%= f.label :expansion_id %>
+          <%= f.collection_select :expansion_id, Expansion.all,   :name,  :name , {:include_blank => 'Select Expansion...'},   html_options = {class: "form-control" , required: true } %>
+        </div>
+        <div class="field" style="margin-top:10px">
+          <%= f.submit "Create Blueprint" , class: 'btn btn-primary', style: "width:250px !important" %>
+        </div>
+      <% end %>
+
+
+    </div>
+
+    <div class="col-6 col-sm-4">
+      <hr>
+      <p></p>
+      <% @expansions.each do |blog| %>
+
+          <li><%= blog.name %> |  <%= blog.brand.name rescue 'No post category present for this blog' %></li>
+
+      <% end %>
+
+    </div>
+  </div>
 </div>

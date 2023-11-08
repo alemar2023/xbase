@@ -1,4 +1,4 @@
-class BrandController < ApplicationController
+class BrandsController < ApplicationController
 
   def new
 

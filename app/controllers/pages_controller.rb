@@ -17,9 +17,16 @@ class PagesController < ApplicationController
 
   end
   def admin_section
+
+
+    @category = Category.all
+    @brands = Brand.all
+
+    @expansions = Expansion.all
+
+
     render layout: 'dashboard'
 
- 
 
   end
 # ---------------- SUPER ADMIN section --------------------------------------

@@ -1,6 +1,8 @@
 class DashboardController < ActionController::Base
 
+  def new
 
+  end
   def index
 
   end
